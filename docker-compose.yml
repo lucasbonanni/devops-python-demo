@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+    container_name: jenkins_server
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+      - RENDER_DEPLOY_HOOK=${RENDER_DEPLOY_HOOK:-https://api.render.com/deploy/sample-hook}
+    volumes:
+      # Montamos la configuración declarativa dentro del contenedor
+      - ./jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+      # Mantenemos persistencia de builds e historial en un volumen administrado por Docker
+      - jenkins_data:/var/jenkins_home
+      # Socket de Docker para ejecutar builds en el host
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  jenkins_data:

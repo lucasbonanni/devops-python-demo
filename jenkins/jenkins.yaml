@@ -1,0 +1,40 @@
+jenkins:
+  systemMessage: "Servidor Jenkins preconfigurado para la demostración de la clase."
+  numExecutors: 2
+  scmCheckoutRetryCount: 2
+  mode: NORMAL
+
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+
+# 1. Definición de Credenciales Globales
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              scope: GLOBAL
+              id: "RENDER_DEPLOY_HOOK"
+              secret: "${RENDER_DEPLOY_HOOK}"
+              description: "Deploy Hook Token/URL para Render"
+
+# 2. Creación Automática de la Pipeline
+jobs:
+  - script: |
+      pipelineJob('fastapi-ci-cd-pipeline') {
+        description('Pipeline principal de CI/CD para la app FastAPI')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/tu-usuario/devops-jenkins-demo.git')
+                }
+                branches('main')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }
