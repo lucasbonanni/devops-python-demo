@@ -133,6 +133,10 @@ pipeline {
 
 ```
 
+>[!Note]
+> Replace `your-username` in the `Jenkinsfile` with your actual GitHub username to ensure the pipeline can access your repository.
+> This `Jenkinsfile` defines a declarative pipeline that checks out the code, installs dependencies, runs tests, builds a Docker image, and triggers a deployment to Render using a deploy hook.
+
 ---
 
 ### Step 4: Configure Jenkins as Code (JCasC)
@@ -155,6 +159,9 @@ git-client
 job-dsl
 
 ```
+
+>[!Note]
+> The `plugins.txt` file lists the required Jenkins plugins for the CI/CD pipeline, including Git integration, Docker support, and Job DSL for pipeline creation.
 
 #### `jenkins/jenkins.yaml`
 
@@ -199,6 +206,9 @@ jobs:
       }
 
 ```
+
+> [!Note]
+> The `jenkins.yaml` file contains the declarative configuration for Jenkins, including system settings, credentials, and job definitions.
 
 #### `jenkins/Dockerfile`
 

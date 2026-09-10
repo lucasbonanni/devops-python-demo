@@ -8,7 +8,7 @@ unclassified:
   location:
     url: "http://localhost:8080/"
 
-# 1. Definición de Credenciales Globales
+# 1. Credentials Configuration
 credentials:
   system:
     domainCredentials:
@@ -19,7 +19,9 @@ credentials:
               secret: "${RENDER_DEPLOY_HOOK}"
               description: "Deploy Hook Token/URL para Render"
 
-# 2. Creación Automática de la Pipeline
+# 2. Automatic Job Creation using Job DSL
+# The following section defines a pipeline job that is automatically created in Jenkins using Job DSL. This job is configured to run the pipeline defined in the `Jenkinsfile` of the GitHub repository.
+# Script language: Groovy
 jobs:
   - script: |
       pipelineJob('fastapi-ci-cd-pipeline') {
