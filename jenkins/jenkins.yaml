@@ -29,7 +29,7 @@ jobs:
             scm {
               git {
                 remote {
-                  url('https://github.com/tu-usuario/devops-jenkins-demo.git')
+                  url('https://github.com/lucasbonanni/devops-python-demo.git')
                 }
                 branches('main')
               }
